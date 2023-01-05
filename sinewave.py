@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/python3
 
 import sys
 import numpy as np
@@ -8,6 +8,7 @@ waves = {}
 add_noise = False
 decompose = False
 t_start, t_end = 0, 1
+noise_scale = 0.25
 
 for i in range(1,len(sys.argv)):
     arg = sys.argv[i]
@@ -24,8 +25,12 @@ for i in range(1,len(sys.argv)):
     elif arg == '--decompose' or arg == '-d':
         decompose = True
 
+    elif arg == '-ns' or arg == '--noise-scale':
+        add_noise = True
+        noise_scale = float(sys.argv[i+1])
 
-x = np.arange(t_start, t_end, 0.001)
+#x = np.arange(t_start, t_end, 0.001)
+x = np.linspace(t_start, t_end, 8000)
 y = 0
 
 for v in waves.values():
@@ -40,11 +45,11 @@ for v in waves.values():
 
     if decompose:
         i = A * np.sin(2 * np.pi * f * x + P)
-        plt.plot(x, i, label=f'A = {A} f = {f} P = {P} ')
+        plt.plot(x, i, label=f'A = {A} f = {f} P = {P * 360 / (2 * np.pi)} ')
 
 # add noise if needed
 if add_noise:
-    noise = np.random.normal(scale=0.50, size=x.size)
+    noise = np.random.normal(scale=noise_scale, size=x.size)
     y += noise
 
     if decompose:
