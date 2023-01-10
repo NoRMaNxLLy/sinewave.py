@@ -49,7 +49,7 @@ for v in waves.values():
 
 # add noise if needed
 if add_noise:
-    noise = np.random.normal(scale=noise_scale, size=x.size)
+    noise = np.random.normal(loc=0.0, scale=noise_scale, size=x.size)
     y += noise
 
     if decompose:
