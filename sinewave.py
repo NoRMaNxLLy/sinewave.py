@@ -60,8 +60,9 @@ plt.plot(x, y, label='total')
 plt.axhline(y=0, color='black')
 plt.xlabel('Time')
 plt.ylabel('Amplitude')
-#plt.axis([-2, 2, -5, A])
-#plt.title(r'$S(t) = A \sin(2\pi ft + \O)$', loc='center')
 if decompose:
     plt.legend(loc='upper right')
+
+# start drawing from 0
+plt.xlim(left=t_start, right=t_end)
 plt.show()
